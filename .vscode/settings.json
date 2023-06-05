@@ -1,6 +1,15 @@
 {
     "C_Cpp.default.compilerPath": "c:\\Program Files\\CodeBlocks\\MinGW\\build-info.txt",
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "stacktrace": "cpp",
+        "regex": "cpp",
+        "valarray": "cpp"
     }
 }
