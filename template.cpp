@@ -72,7 +72,7 @@ template<typename T> T gcd(T a, T b){return(b?__gcd(a,b):a);}
  
 template<typename T> T lcm(T a, T b){return(a*(b/gcd(a,b)));} 
 
-void extended_gcd(ll a, ll b, ll *x, ll*y) {
+void extended_gcd(ll a, ll b, ll* x, ll* y) {
     if (a == 0) {
         *x = 0;
         *y = 1;
@@ -198,11 +198,14 @@ class segtree {
 inline void _preprocess_() {
 	
 }
- 
+
+
  
 inline void _solve_() {
 	
 }
+
+
 
 #define USE_TEST_CASES
  
