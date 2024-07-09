@@ -1,3 +1,4 @@
+// https://codeforces.com/problemset/problem/1385/D
 // author: logemi
 
 #pragma GCC optimize("O3,unroll-loops")
@@ -164,9 +165,31 @@ void _preprocess_() {
 
 }
 
+int eddist(string &s, int l, int r, char c) {
+    if (l == r-1) return c == s[l] ? 0 : 1;
+
+    int mid = (l+r)/2;
+
+    int try1 = eddist(s, mid, r, c+1);
+    for (int i = l; i < mid; i++)  {
+        try1 += c == s[i] ? 0 : 1;
+    }
+
+    int try2 = eddist(s, l, mid, c+1);
+    for (int i = mid; i < r; i++) {
+        try2 += c == s[i] ? 0 : 1;
+    }
+
+    return min(try1, try2);
+}
 
 void _solve_() {
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
 
+    cout << eddist(s, 0, n, 'a') << "\n";
 }
 
 #define USE_TEST_CASES

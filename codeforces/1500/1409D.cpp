@@ -1,3 +1,4 @@
+// https://codeforces.com/problemset/problem/1409/D
 // author: logemi
 
 #pragma GCC optimize("O3,unroll-loops")
@@ -166,7 +167,37 @@ void _preprocess_() {
 
 
 void _solve_() {
+    string nstr;
+    ll s;
+    cin >> nstr >> s;
 
+    vector<ll> n;
+
+    ll tot = 0;
+    for (int i = nstr.length()-1; i >= 0; i--) {
+        tot += nstr[i] - '0';
+        n.psb(nstr[i] - '0');
+    }
+
+    ll steps = 0;
+    for (ll i = 0; tot > s; i++) {
+        if (n[i] == 0) continue;
+        steps += ipow(10, i) * (10-n[i]);
+        tot -= n[i];
+        for (ll j = i+1; j < sz(n); j++) {
+            if (n[j] != 9) {
+                n[j]++; tot++;
+                break;
+            }
+
+            n[j] = 0;
+            tot -= 9;
+
+            if (j == sz(n)-1) tot = 1;
+        }
+    }
+
+    cout << steps << "\n";
 }
 
 #define USE_TEST_CASES

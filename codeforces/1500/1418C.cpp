@@ -1,3 +1,4 @@
+// https://codeforces.com/problemset/problem/1418/C
 // author: logemi
 
 #pragma GCC optimize("O3,unroll-loops")
@@ -166,7 +167,33 @@ void _preprocess_() {
 
 
 void _solve_() {
+    ll n;
+    cin >> n;
+    ll a[n+1];
 
+    FORI1(n+1) {
+        cin >> a[i];
+    }
+
+    ll p1[n+1][2], p2[n+1][2];
+    p1[1][0] = a[1];
+    p1[1][1] = MAX7;
+    p2[1][0] = MAX7;
+    p2[1][1] = MAX7;
+
+    for (int i = 2; i < n+1; i++) {
+        p1[i][0] = a[i] + min(p2[i-1][0], p2[i-1][1]);
+        p1[i][1] = a[i] + p1[i-1][0];
+        p2[i][0] = min(p1[i-1][0], p1[i-1][1]);
+        p2[i][1] = p2[i-1][0];
+    }
+
+    ll res = min(min(p1[n][0],
+                     p1[n][1]),
+                 min(p2[n][0],
+                     p2[n][1]));
+
+    cout << res << "\n";
 }
 
 #define USE_TEST_CASES

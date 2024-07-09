@@ -1,3 +1,4 @@
+// https://codeforces.com/problemset/problem/977/E
 // author: logemi
 
 #pragma GCC optimize("O3,unroll-loops")
@@ -92,14 +93,6 @@ ll mod_inv(ll a, ll m) {
         return x % m;
     }
 }
-ll ipow(ll b, ll e) {
-    ll r = 1;
-    while (e) {
-        if (e & 1) r *= b;
-        b *= b; e >>= 1;
-    }
-    return r;
-}
 pair<vector<int>, vector<bool> > get_primes(const ll n) {
     vector<bool> sieve(n+1, true);
     vector<int> primes;
@@ -164,12 +157,49 @@ void _preprocess_() {
 
 }
 
+void fill_component(vector<int> graph[], vector<bool> &ver, int crr) {
+    ver[crr] = true;
 
-void _solve_() {
-
+    for (int nx: graph[crr]) {
+        if (ver[nx]) continue;
+        fill_component(graph, ver, nx);
+    }
 }
 
-#define USE_TEST_CASES
+bool _is_cycle(vector<int> graph[], int crr, int prev, int initial) {
+    if (sz(graph[crr]) != 2) return false;
+    if (crr == initial && prev != -1) return true;
+
+    int nx = graph[crr][0] != prev ? graph[crr][0] : graph[crr][1];
+    return _is_cycle(graph, nx, crr, initial);
+}
+
+void _solve_() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<int> graph[n+1];
+    vector<bool> ver(n+1, false);
+
+    FORI(m) {
+        int p, q;
+        cin >> p >> q;
+        graph[p].psb(q);
+        graph[q].psb(p);
+    }
+
+    int tot = 0;
+
+    FORI1(n+1) {
+        if (ver[i]) continue;
+        fill_component(graph, ver, i);
+        if (_is_cycle(graph, i, -1, i)) tot++;
+    }
+
+    cout << tot << "\n";
+}
+
+// #define USE_TEST_CASES
 
 int main() {
 	_preprocess_();
